@@ -1,5 +1,5 @@
-*here is the data
-use "C:\Users\LeeGr\OneDrive\Documents\Spring 2017\587\Homework\personal paper model\GSS_pane1208123_R1_V1.dta", clear
+*Here is the data--> In I think 2012 the GSS switched to a three weave panel, that is what I am using here
+use "GSS panel data set", clear
 
 *setting up panel data 
 xtset idnum panelwave
@@ -36,7 +36,7 @@ hausman fixed random
 *yeah cannot do fixed effects sample is too small and union membership does not change that often 
 
 
-*other models 
+*Other models 
 xtprobit joblose_dum union_dum realinc age educ married childs parttime,re
 estat ic 
 xtologit joblose union_dum realinc age educ married white black parttime, vce(robust)
@@ -55,7 +55,7 @@ estat ic
 xtlogit joblose_dum union_dum realinc age age_sq educ married childs ///
  parttime white black female immigrant govwork,re 
 estat ic 
-*need to include the class varible into my regression... self reported cannot use 
+*need to include the class varible into my regression... self reported cannot use(Dang)
 
 *do not want to run every time (curses stata IC)
 *keep joblose_dum union_dum realinc age educ marital married childs parttime race female immigrant sex union joblose married white black otherrace govwork exp age_sq exp_sq lninc idnum panelwave
@@ -64,7 +64,7 @@ estat ic
 xtlogit joblose_dum union_dum 
 xtlogit joblose_dum union_dum, re
 
-*BIC test
+*BIC tests
 quietly xtlogit joblose_dum union_dum lninc age age_sq educ married childs ///
  parttime i.race female immigrant govwork, re vce(robust)
 estat ic
@@ -72,18 +72,18 @@ quietly xtlogit joblose_dum union_dum lninc age age_sq educ married childs ///
  parttime i.race female immigrant govwork, re
 estat ic
  
-*summary stats 
+*Summary stats 
 quietly logit joblose_dum union_dum realinc age educ married childs ///
  year parttime black otherrace female immigrant govwork
 estat sum
 
-*final logit model model (for now)
+*Final logit model model (for now)
 xtlogit joblose_dum union_dum lninc age age_sq educ married childs ///
  parttime i.race female immigrant govwork, re
 *outreg2 using table1.doc, replace ctitle (Logit)
 
 
-*odds-ratios
+*Odds-ratios
 xtlogit joblose_dum union_dum lninc age age_sq educ married childs ///
  parttime i.race female immigrant govwork, re or
 *outreg2 using table1.doc, append ctitle(odds ratio) eform
